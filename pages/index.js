@@ -30,13 +30,27 @@ function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
 
-export async function getStaticProps() {
-  //fetch data from API
+export async function getServerSideProps(context) {
+  //req is what we got and res is what we will return
+  //req gives access to session cookie, useful to check if user is logged in
+  const req = context.req;
+  const res = context.res;
+  //fetch data from API or access file system
   return {
     props: {
       meetups: DUMMY_MEETUPS,
     },
   };
 }
+
+// export async function getStaticProps() {
+//   //fetch data from API
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//     revalidate: 10,
+//   };
+// }
 
 export default HomePage;
