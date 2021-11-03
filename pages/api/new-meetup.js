@@ -8,9 +8,7 @@ async function handler(req, res) {
     // will give connected client eventually
     let client = null;
     try {
-      client = await MongoClient.connect(
-        "DUMMY_URL"
-      );
+      client = await MongoClient.connect(process.env.DB_CONN_STRING);
       const db = client.db();
 
       const meetupsCollection = db.collection("meetups");
