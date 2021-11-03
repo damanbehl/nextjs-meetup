@@ -6,8 +6,11 @@ async function handler(req, res) {
     const data = req.body;
     // const { title, address, description, image } = data;
     // will give connected client eventually
+    let client = null;
     try {
-      const client = await MongoClient.connect("dummyapi");
+      client = await MongoClient.connect(
+        "DUMMY_DB_URL"
+      );
       const db = client.db();
 
       const meetupsCollection = db.collection("meetups");
@@ -17,9 +20,13 @@ async function handler(req, res) {
 
       res.status(201).json({ message: "Message inserted!" });
     } catch (error) {
-      client.close();
+      // client.close();
       console.log(error);
       res.status(500).json({ message: "500 – Internal Server Error" });
+    } finally {
+      if (client) {
+        client.close();
+      }
     }
   }
 }
