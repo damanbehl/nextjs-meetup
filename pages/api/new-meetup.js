@@ -9,7 +9,7 @@ async function handler(req, res) {
     let client = null;
     try {
       client = await MongoClient.connect(
-        "DUMMY_DB_URL"
+        "DUMMY_URL"
       );
       const db = client.db();
 

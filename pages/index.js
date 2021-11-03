@@ -1,5 +1,5 @@
 // import { useEffect, useState } from "react";
-import { MongoClient } from "mongodb";
+import getClient from "./utility/mongo-conn";
 import MeetupList from "../components//meetups/MeetupList";
 
 function HomePage(props) {
@@ -27,23 +27,22 @@ function HomePage(props) {
 
 export async function getStaticProps() {
   //fetch data from API
-  let client = null;
+  const clientObj = await getClient();
   let meetups = null;
-  try {
-    client = await MongoClient.connect(
-      "DUMMY_DB_URL"
+  if (clientObj.error) {
+    console.log(
+      "error while getting database client object>>>" + clientObj.error
     );
+    throw new Error(
+      "Error while getting database client object ",
+      clientObj.error
+    );
+  } else {
+    const client = clientObj.client;
     const db = client.db();
-
     const meetupsCollection = db.collection("meetups");
     meetups = await meetupsCollection.find().toArray();
-  } catch (error) {
-    // client.close();
-    console.log(error);
-  } finally {
-    if (client) {
-      client.close();
-    }
+    client.close();
   }
   return {
     props: {
