@@ -1,14 +1,22 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 import getClient, { ObjectId } from "../utility/mongo-conn";
+import { Fragment } from "react";
+import Head from "next/head";
 
 function MeetupDetails({ meetupData }) {
   return (
-    <MeetupDetail
-      address={meetupData.address}
-      title={meetupData.title}
-      description={meetupData.description}
-      image={meetupData.image}
-    />
+    <Fragment>
+      <Head>
+        <title>{meetupData.title}</title>
+        <meta name="description" content={meetupData.description} />
+      </Head>
+      <MeetupDetail
+        address={meetupData.address}
+        title={meetupData.title}
+        description={meetupData.description}
+        image={meetupData.image}
+      />
+    </Fragment>
   );
 }
 

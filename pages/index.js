@@ -1,6 +1,7 @@
-// import { useEffect, useState } from "react";
+import Head from "next/head";
 import getClient from "./utility/mongo-conn";
 import MeetupList from "../components//meetups/MeetupList";
+import { Fragment } from "react";
 
 function HomePage(props) {
   //Not needed anymore
@@ -9,7 +10,18 @@ function HomePage(props) {
   // useEffect(() => {
   //   setLoadedMeetups(DUMMY_MEETUPS);
   // }, []);
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta
+          name="description"
+          content="Browse a List of the seven wonders of the world"
+        />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </Fragment>
+  );
 }
 
 // export async function getServerSideProps(context) {
@@ -42,6 +54,7 @@ export async function getStaticProps() {
     const db = client.db();
     const meetupsCollection = db.collection("meetups");
     meetups = await meetupsCollection.find().toArray();
+    // console.log(meetups);
     client.close();
   }
   return {
