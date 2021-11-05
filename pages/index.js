@@ -1,5 +1,5 @@
 import Head from "next/head";
-import getClient from "./utility/mongo-conn";
+import getClient from "../utility/mongo-conn";
 import MeetupList from "../components//meetups/MeetupList";
 import { Fragment } from "react";
 

@@ -1,5 +1,5 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
-import getClient, { ObjectId } from "../utility/mongo-conn";
+import getClient, { ObjectId } from "../../utility/mongo-conn";
 import { Fragment } from "react";
 import Head from "next/head";
 
