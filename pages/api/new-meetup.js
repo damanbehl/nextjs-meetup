@@ -8,7 +8,8 @@ async function handler(req, res) {
     // will give connected client eventually
     let client = null;
     try {
-      client = await MongoClient.connect(process.env.DB_CONN_STRING);
+      const DB_CONN_STRING = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+      client = await MongoClient.connect(DB_CONN_STRING);
       const db = client.db();
 
       const meetupsCollection = db.collection("meetups");
